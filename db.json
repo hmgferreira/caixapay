@@ -2,8 +2,17 @@
   "usuarios": [
     {
       "id": 1,
-      "login": "admin",
+      "email": "admin",
       "senha": "123"
+    },
+    {
+      "nome": "Teste",
+      "email": "edson@gmail.com",
+      "senha": "6547895658",
+      "id": 2
     }
-  ]
+  ],
+  "produtos": [],
+  "colaboradores": [],
+  "despesas": []
 }

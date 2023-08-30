@@ -7,6 +7,8 @@ import Categorias from './pages/Categorias';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LayoutDefault from './layouts/LayoutDefault';
+import Usuarios from './pages/Usuarios';
+import UsuariosForm from './pages/Usuarios/UsuarioForm';
 
 function App() { 
 
@@ -24,6 +26,16 @@ function App() {
     {
       path: '/categorias',
       element: <Categorias />,
+      isLayout: true,
+    },
+    {
+      path: '/usuarios',
+      element: <Usuarios />,
+      isLayout: true,
+    },
+    {
+      path: '/usuarios/novo',
+      element: <UsuariosForm />,
       isLayout: true,
     },
     {
@@ -51,7 +63,7 @@ function App() {
         <Routes>
 
           {rotas.map((item, indice) => (
-            <Route path={item.path} element={checkLayout(item)} />
+            <Route key={indice} path={item.path} element={checkLayout(item)} />
           ))}
           
         </Routes>
