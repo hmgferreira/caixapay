@@ -1,7 +1,28 @@
 import { Table, Button, Row, Col, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import Api from '../../config/Api';
+import React from 'react';
 
 function Usuarios() {
+
+    const[lista, setLista] = React.useState([]);
+
+    async function getUsuarios(){
+        const response = await Api.get('/usuarios');
+        setLista(response.data);
+    }
+
+    async function deleteUsuario(id){
+        await Api.delete('/usuarios/'+id);
+        alert("Usuario excluido com sucesso");
+        getUsuarios();
+    }
+
+    React.useEffect(() => {
+        getUsuarios();
+    }, []);
+
+
     return (
         <>
             <div className='mt-3'></div>
@@ -32,26 +53,18 @@ function Usuarios() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>01</td>
-                                <td>Jose</td>
-                                <td>jose</td>
-                                <td>
-                                    <Button variant='primary' size='sm'>Editar</Button>
-                                    {` `}
-                                    <Button variant='danger' size='sm'>Excluir</Button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>02</td>
-                                <td>Jose</td>
-                                <td>jose</td>
-                                <td>
-                                    <Button variant='primary' size='sm'>Editar</Button>
-                                    {` `}
-                                    <Button variant='danger' size='sm'>Excluir</Button>
-                                </td>
-                            </tr>
+                            {lista.map((item, indice) => (
+                                <tr key={indice}>
+                                    <td>{item.id}</td>
+                                    <td>{item.nome}</td>
+                                    <td>{item.email}</td>
+                                    <td>
+                                        <Button variant='primary' size='sm'>Editar</Button>
+                                        {` `}
+                                        <Button variant='danger' size='sm' onClick={() => deleteUsuario(item.id)}>Excluir</Button>
+                                    </td>
+                                </tr>
+                            ))}
                         </tbody>
                     </Table>
                 </Col>
