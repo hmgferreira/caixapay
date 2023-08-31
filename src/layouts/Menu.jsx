@@ -17,6 +17,9 @@ function Menu() {
                     <Link to="/usuarios">Usuários</Link>
                 </li>
                 <li>
+                    <Link to="/perdas">Perdas</Link>
+                </li>
+                <li>
                     <Link to="/">Sair</Link>
                 </li>
             </ul>

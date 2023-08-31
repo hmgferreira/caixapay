@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Painel from './pages/Painel';
 import Produtos from './pages/Produtos';
 import Categorias from './pages/Categorias';
+import Perdas from './pages/Perdas';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LayoutDefault from './layouts/LayoutDefault';
@@ -42,6 +43,11 @@ function App() {
       path: '/login',
       element: <Login />,
       isLayout: false,
+    },
+    {
+      path: '/perdas',
+      element: <Perdas />, 
+      isLayout: true,
     },
   ];
 
