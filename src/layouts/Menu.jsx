@@ -20,6 +20,9 @@ function Menu() {
                     <Link to="/perdas">Perdas</Link>
                 </li>
                 <li>
+                    <Link to="/receitas">Receitas</Link>
+                </li>
+                <li>
                     <Link to="/">Sair</Link>
                 </li>
             </ul>

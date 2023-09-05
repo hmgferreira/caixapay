@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import LayoutDefault from './layouts/LayoutDefault';
 import Usuarios from './pages/Usuarios';
 import UsuariosForm from './pages/Usuarios/UsuarioForm';
+import Receitas from './pages/Receitas';
 
 function App() { 
 
@@ -47,6 +48,11 @@ function App() {
     {
       path: '/perdas',
       element: <Perdas />, 
+      isLayout: true,
+    },
+    {
+      path: '/receitas',
+      element: <Receitas />, 
       isLayout: true,
     },
   ];
