@@ -11,6 +11,7 @@ import LayoutDefault from './layouts/LayoutDefault';
 import Usuarios from './pages/Usuarios';
 import UsuariosForm from './pages/Usuarios/UsuarioForm';
 import Receitas from './pages/Receitas';
+import ReceitaForm from './pages/Receitas/ReceitaForm';
 
 function App() { 
 
@@ -41,6 +42,11 @@ function App() {
       isLayout: true,
     },
     {
+      path: '/usuarios/editar/:id',
+      element: <UsuariosForm />,
+      isLayout: true,
+    },
+    {
       path: '/login',
       element: <Login />,
       isLayout: false,
@@ -53,6 +59,11 @@ function App() {
     {
       path: '/receitas',
       element: <Receitas />, 
+      isLayout: true,
+    },
+     {
+      path: '/receitas/novo',
+      element: <ReceitaForm />, 
       isLayout: true,
     },
   ];

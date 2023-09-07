@@ -1,40 +1,68 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Button, Row, Col, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Api from '../../config/Api';
 
 function Receitas() {
+
+    const[lista, setLista] = useState([]);
+    const navigate = useNavigate();
+
+    // FUNCAO
+    function novaReceita() {
+        navigate('/receitas/novo');
+    }
+
+    async function getData() {
+        const response = await Api.get('receitas');
+        setLista(response.data);
+    }
+
+    useEffect(() => {
+        getData();
+    }, []);
+
     return(
         <>
-             <div className='mt-3'></div>
-        <Row>
-            <Col md={10}>
-                <Form>
-                    <h6>Nome</h6>
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Control type="text" placeholder="Nome" /> <br />
-                    <h6>Valor</h6>
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Control type="text" placeholder="R$:" /> <br />
-                    </Form.Group>
-                    <h6>Data</h6>
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Control type="text" placeholder="____/____/____" /> <br />
-                    </Form.Group>
-                <Link to="/usuarios/novo">
-                    <Button variant='success'>Enviar</Button>    
-                </Link>
-                </Form>
-            </Col>
-            {/* <Col>
-                <Link to="/usuarios/novo">
-                    <Button variant='success'>Enviar</Button>    
-                </Link>
-    </Col> */}
-        </Row>
+            <Link to="/receitas/novo">Nova Receita</Link>
+            <Button 
+                variant='success' 
+                size='sm'
+                onClick={novaReceita}
+                >Nova Receita</Button>
+
+            <Row>
+                <Col>
+                    <Table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>DESCRICAO</th>
+                                <th>VALOR</th>
+                                <th>DATA</th>
+                                <th>AÇÕES</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {/* interacoes com array */}
+                            {lista.map((item, indice) => (
+                                <tr key={indice}>
+                                    <td>{item.id}</td>
+                                    <td>{item.descricao}</td>
+                                    <td>{item.valor}</td>
+                                    <td>{item.data}</td>
+                                    <td>
+                                        <Button variant='primary'>Editar</Button>
+                                        <Button variant='danger'>Excluir</Button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
+                </Col>
+            </Row>
         </>
     )
 }

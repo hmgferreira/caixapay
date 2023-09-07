@@ -1,12 +1,11 @@
 import { Table, Button, Row, Col, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Api from '../../config/Api';
 import React from 'react';
 
 function Usuarios() {
-
     const[lista, setLista] = React.useState([]);
-
+    const navigate = useNavigate();
     async function getUsuarios(){
         const response = await Api.get('/usuarios');
         setLista(response.data);
@@ -16,6 +15,10 @@ function Usuarios() {
         await Api.delete('/usuarios/'+id);
         alert("Usuario excluido com sucesso");
         getUsuarios();
+    }
+
+    function editarUsuario(id) {
+        navigate('/usuarios/editar/'+id);
     }
 
     React.useEffect(() => {
@@ -59,7 +62,7 @@ function Usuarios() {
                                     <td>{item.nome}</td>
                                     <td>{item.email}</td>
                                     <td>
-                                        <Button variant='primary' size='sm'>Editar</Button>
+                                        <Button variant='primary' size='sm' onClick={() => editarUsuario(item.id)}>Editar</Button>
                                         {` `}
                                         <Button variant='danger' size='sm' onClick={() => deleteUsuario(item.id)}>Excluir</Button>
                                     </td>

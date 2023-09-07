@@ -1,17 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Button, Row, Col, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Api from '../../config/Api';
 
 function UsuarioForm() {
 
+    const[data, setData] = useState({
+        nome: '',
+        email: '',
+        senha: ''
+    });
+    const params = useParams();
+
     async function enviarForm(values, funcoes) {
-        await Api.post('/usuarios', values);
-        funcoes.resetForm();
-        alert("Usuario Cadastro com Sucesso");
+        if(params.id) {
+            const response = await Api.put('/usuarios/'+params.id, values);
+            funcoes.resetForm();
+            alert("Usuario Atualizado com Sucesso");
+            setData(response.data);
+            
+        } else {
+            await Api.post('/usuarios', values);
+            funcoes.resetForm();
+            alert("Usuario Cadastro com Sucesso");
+        }
     }
+
+    async function getData() {
+        const response = await Api.get('/usuarios/'+params.id);
+        setData(response.data);
+    }
+    
+    useEffect(() => {
+        if(params.id) {
+            getData();
+        }
+    }, []);
+
     return (
         <>
             <div className='mt-3'></div>
@@ -20,12 +47,10 @@ function UsuarioForm() {
             </Link>
             <Row>
                 <Col>
+                    
                     <Formik 
-                        initialValues={{
-                            nome: '',
-                            email: '',
-                            senha: ''
-                        }}
+                        initialValues={data}
+                        enableReinitialize
                         onSubmit={(values, funcoes) => {
                             enviarForm(values, funcoes);
                         }}

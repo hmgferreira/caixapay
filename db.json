@@ -1,13 +1,27 @@
 {
   "usuarios": [
     {
-      "nome": "Bruno",
-      "email": "bruno@gmail.com",
-      "senha": "123123123",
-      "id": 3
+      "nome": "Marcio",
+      "email": "edson@gmail.com",
+      "senha": "112312312323",
+      "id": 1
+    },
+    {
+      "nome": "Felipe ",
+      "email": "filipe@gmail.com",
+      "senha": "1231231231231",
+      "id": 2
     }
   ],
   "produtos": [],
   "colaboradores": [],
-  "despesas": []
+  "despesas": [],
+  "receitas": [
+    {
+      "id": 1,
+      "descricao": "Salario",
+      "valor": 500.50,
+      "data": "2023-02-02"
+    }
+  ]
 }
