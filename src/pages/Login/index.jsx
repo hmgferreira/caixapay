@@ -1,26 +1,39 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Api from '../../config/Api';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { Col, Container, Row } from 'react-bootstrap';
+import AuthContext from '../../contexts/auth';
+import Message from '../../config/Message';
 
 function Login() {
+
+    const { isLogged, setIsLogged, setUser } = useContext(AuthContext);
+
+
     const[login, setLogin] = React.useState('');
     const[senha, setSenha] = React.useState('');
     const navigate = useNavigate();
 
     async function logar() {
-        const resposta = await Api.get('usuarios?login=admin');
+        const resposta = await Api.get('usuarios?email='+login);
         if(resposta.data.length > 0) {
             const dados = resposta.data;
             const usuario = dados[0];
             if(usuario.senha == senha) {
-                alert("Usuario logado");
+                Message.success("Usuario logado com sucesso");
+                setIsLogged(true);
+                setUser(usuario);
                 navigate('/');
+                localStorage.setItem('caixapay@user', JSON.stringify(usuario));
 
             } else {
-                alert("Usuario incorreto");
+                Message.error("Usuario incorreto");
             }
         }
+    }
+
+    if(isLogged) {
+        return <Navigate to="/" />
     }
 
     return (

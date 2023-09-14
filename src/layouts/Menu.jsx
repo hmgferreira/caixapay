@@ -1,6 +1,16 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import AuthContext from '../contexts/auth';
 
 function Menu() {
+
+    const { setIsLogged }  = useContext(AuthContext);
+
+    function logout() {
+        localStorage.removeItem('caixapay@user');
+        setIsLogged(false);
+    }
+
     return (
         <>
             <ul>
@@ -23,7 +33,7 @@ function Menu() {
                     <Link to="/receitas">Receitas</Link>
                 </li>
                 <li>
-                    <Link to="/">Sair</Link>
+                    <a href onClick={() => logout()}>Sair</a>
                 </li>
             </ul>
         </>

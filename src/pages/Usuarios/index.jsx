@@ -1,6 +1,7 @@
 import { Table, Button, Row, Col, Form } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import Api from '../../config/Api';
+import Message from '../../config/Message';
 import React from 'react';
 
 function Usuarios() {
@@ -12,9 +13,12 @@ function Usuarios() {
     }
 
     async function deleteUsuario(id){
-        await Api.delete('/usuarios/'+id);
-        alert("Usuario excluido com sucesso");
-        getUsuarios();
+        Message.confirmation('Atenção', 'Deseja deletar este registro?', async () => {
+            await Api.delete('/usuarios/'+id);
+            alert("Usuario excluido com sucesso");
+            getUsuarios();
+        });
+        
     }
 
     function editarUsuario(id) {

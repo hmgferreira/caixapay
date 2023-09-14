@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Api from '../../config/Api';
-
+import Message from '../../config/Message';
 function UsuarioForm() {
 
     const[data, setData] = useState({
@@ -16,15 +16,22 @@ function UsuarioForm() {
 
     async function enviarForm(values, funcoes) {
         if(params.id) {
-            const response = await Api.put('/usuarios/'+params.id, values);
-            funcoes.resetForm();
-            alert("Usuario Atualizado com Sucesso");
-            setData(response.data);
+
+            Message.confirmation(
+                "Atenção", 
+                "Deseja atualizar estes registros?", 
+                async function() {
+                    const response = await Api.put('/usuarios/'+params.id, values);
+                    funcoes.resetForm();
+                    Message.success("Usuario Atualizado com Sucesso");
+                    setData(response.data);
+                }
+            );
             
         } else {
             await Api.post('/usuarios', values);
             funcoes.resetForm();
-            alert("Usuario Cadastro com Sucesso");
+            Message.success("Usuario Cadastro com Sucesso");
         }
     }
 
